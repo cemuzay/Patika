@@ -35,4 +35,4 @@ ilk index ile bakıcak en küçük olan sayıyı bularak onunla yer değiştirec
 4.adım
 [2,3,4,5,6,9,8,15,7]
 
-
+www.patika.dev
