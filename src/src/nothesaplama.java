@@ -51,7 +51,7 @@ public class nothesaplama {
 
         }
         else {
-            System.out.println("tebrikler geçtiniz .");
+            System.out.println("tebrikler geçtiniz.");
         }
         System.out.println("ortalama "+ avarage);
     }
