@@ -54,3 +54,5 @@ adım 8
           /  \   /   \
          3   4  6     9
               
+              www.patika.dev
+              cem uzay
