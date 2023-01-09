@@ -13,15 +13,14 @@ public class kullanicigiris {
             System.out.println("sisteme giriş yaptınız.");
         }
         else{
-            System.out.println("şifreniz yanlış tekrar deneyiniz");
-            for(int i=0;i<=3;i++){
+
+            for(int i=0;i<3;i++){
                 username=input.next();
                 password=input.next();
             }
 
-                if(password.equals("java123")|| username.equals("patika")){
-                    System.out.println("yanlış giridiniz program kapatılıyor.");
-
+                if(!password.equals("java123")|| !username.equals("patika")){
+                    System.out.println("şifreniz yanlış tekrar deneyiniz");
             }
 
         }
