@@ -23,6 +23,7 @@ public class ucakbiletfiyatı {
             if (yas < 12) {
                 int yasindirimi = (int) (normaltutar * cocukindirim);
                 normaltutar -= yasindirimi;
+
             } else if (yas >= 12 && yas <= 24) {
                 int ogrenciindirimi = (int) (normaltutar * ogrenciindirim);
                 normaltutar -= ogrenciindirimi;
@@ -31,9 +32,9 @@ public class ucakbiletfiyatı {
                 normaltutar -= yaslıindirimi;
             }
 
-        } else if (yolculuktipi == 2) {
+        } if (yolculuktipi == 2) {
             int gidisdonus = (int) (normaltutar * gidisdonusindirimi);
-            normaltutar = (int) (normaltutar - (gidisdonusindirimi) * 2);
+            normaltutar = (int) ((normaltutar- (gidisdonus))*2);
         }else {
             System.out.println("hatalı veri girdiniz");
         }
