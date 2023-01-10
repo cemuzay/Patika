@@ -2,7 +2,7 @@ package src.src;
 
 import java.util.Scanner;
 
-public class tekcift {
+public class ortalamahesap {
     public static void main(String[] args) {
         double ort = 0;
         int bolunen=0;
