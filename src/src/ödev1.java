@@ -1,3 +1,5 @@
+package src.src;
+
 import java.util.Scanner;
 
 public class ödev1 {
