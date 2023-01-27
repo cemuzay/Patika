@@ -12,7 +12,7 @@ public class Main {
     Systemprograming.AddTeacher(t1);
     s1.addbulkexamnote(100,70,90);
 
-    s1.isPass();
+
     ComputingTheory.AddTeacher(t2);
         System.out.println("");
     ComputingTheory.printTeacher();
@@ -22,5 +22,7 @@ public class Main {
     SoftwareVerification.printTeacher();
         System.out.println("");
     Systemprograming.printTeacher();
+        System.out.println("");
+        s1.isPass();
     }
 }
