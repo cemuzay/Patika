@@ -7,5 +7,6 @@ public class Main {
         employee.tostring();
         System.out.println("-------------");
         employee1.tostring();
+        System.out.println("-------------");
     }
 }
