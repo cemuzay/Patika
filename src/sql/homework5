@@ -1,0 +1,5 @@
+
+
+1-select title from film where title ILIKE '%n' ORDER BY length desc LIMIT 5;
+2-select title from film where title ILIKE '%n' ORDER BY length ASC OFFSET 5 LIMIT 5;
+3-select * from customer where  store_id=1 ORDER BY last_name desc LIMIT 4;
