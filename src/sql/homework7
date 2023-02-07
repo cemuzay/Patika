@@ -1,0 +1,6 @@
+
+
+1-select rating from film GROUP BY rating;
+2-select replacement_cost from film GROUP BY  replacement_cost HAVING COUNT(*)>50;
+3-select COUNT(store_id) from customer GROUP BY store_id;
+4-select MAX (country_id),COUNT(country_id) from city GROUP BY country_id ORDER BY COUNT(country_id) DESC LIMIT 1;
