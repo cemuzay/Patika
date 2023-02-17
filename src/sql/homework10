@@ -1,0 +1,7 @@
+
+
+1-select country,city from country LEFT JOIN city on country.country_id=city.city_id;
+2-select payment_id,first_name,last_name from payment RIGHT JOIN customer on
+  customer.customer_id=payment.customer_id ;
+ 3-select rental_id,first_name,last_name from rental FULL OUTER JOIN customer on
+    rental.rental_id=customer.customer_id ;
