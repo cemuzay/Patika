@@ -9,6 +9,7 @@ public class Player {
     private int health;
     private int money;
     private Inventory inventory;
+    private int orjhealth;
     private Scanner input = new Scanner(System.in);
 
     public Player(String name, String character, int damage, int health, int money) {
@@ -71,12 +72,15 @@ public class Player {
     public void initPlayer(GameChar gameChar){
             this.setDamage(gameChar.getDamage());
             this.setHealth(gameChar.getHealth());
+            this.setOrjhealth(gameChar.getHealth());
             this.setMoney(gameChar.getMoney());
             this.setCharacter(gameChar.getName());
 
     }
     public void PrintInfo(){
         System.out.println("Silahınız : " + this.getInventory().getWeapon().getName()+
+                ",Zırh : "+ this.getInventory().getArmor().getName()+
+                ",Bloklama " + this.getInventory().getArmor().getBlock()+
                 ",Hasarınız : " + this.getDamage()+
                 ",sağlık : " + this.getHealth() +
                 " ,para "+ this.getMoney());
@@ -110,6 +114,9 @@ public class Player {
     }
 
     public void setHealth(int health) {
+        if(health<0){
+            health=0;
+        }
         this.health = health;
     }
 
@@ -120,7 +127,26 @@ public class Player {
     public void setMoney(int money) {
         this.money = money;
     }
+    public Weapon getWeapon(){
+        return this.getInventory().getWeapon();
+    }
+    public int getTotaldamage(){
+        return damage+this.getInventory().getWeapon().getDamage();
+    }
 
+    public int getOrjhealth() {
+        return orjhealth;
+    }
 
+    public void setOrjhealth(int orjhealth) {
+        this.orjhealth = orjhealth;
+    }
 
+    public Scanner getInput() {
+        return input;
+    }
+
+    public void setInput(Scanner input) {
+        this.input = input;
+    }
 }
