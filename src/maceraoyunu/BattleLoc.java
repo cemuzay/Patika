@@ -9,6 +9,8 @@ public abstract class BattleLoc extends Location {
     private String prize;
     private int maxobstacle;
     private int chance;
+
+    private boolean isAllEneymiesClear;
     public BattleLoc(Player player, String name, Monster monster, int award,String prize, int maxobstacle,int chance) {
         super(player, name);
         this.monster=monster;
@@ -16,27 +18,35 @@ public abstract class BattleLoc extends Location {
         this.prize=prize;
         this.maxobstacle=maxobstacle;
         this.chance=chance;
+        this.isAllEneymiesClear=false;
     }
     @Override
     public boolean onLocation() {
-        int obsNumber=this.randomObstacleNumber();
-        System.out.println("Şuan buradasınız : "+ this.getName());
-        System.out.println("Dikkatli Ol Burada ! "+obsNumber + " tane " + this.getMonster().getName()+ " yaşıyor");
-        System.out.println("<S>avaş veya <K>aç : ");
-        String selectCase=input.next();
-        selectCase=selectCase.toUpperCase();
-        if(selectCase.equals("S") && combat(obsNumber)){
-                System.out.println(this.getName()+"tüm düşmanları yendiniz !");
+        if (!isAllEneymiesClear()){
+            int obsNumber=this.randomObstacleNumber();
+            System.out.println("Şuan buradasınız : "+ this.getName());
+            System.out.println("Dikkatli Ol Burada ! "+obsNumber + " tane " + this.getMonster().getName()+ " yaşıyor");
+            System.out.println("<S>avaş veya <K>aç : ");
+            String selectCase=input.next();
+            selectCase=selectCase.toUpperCase();
+            if(selectCase.equals("S") && combat(obsNumber)){
+                if(isAllEneymiesClear()){
+                    System.out.println(this.getName()+"tüm düşmanları yendiniz !");
+                }
                 return true;
             }
-         if(this.getPlayer().getHealth()<=0){
-             System.out.println("öldünüz");
-            return false;
+            if(this.getPlayer().getHealth()<=0){
+                System.out.println("öldünüz");
+                return false;
+            }
         }
+        else
+            System.out.println("Zaten Burayi temizlediniz. Tekrar giremezsiniz!");
+
         return true;
     }
     public boolean combat(int obsNumber){
-        for(int i=1;i<obsNumber;i++){
+        for(int i=1;i<=obsNumber;i++){
             this.getMonster().setHealth(this.getMonster().getOrjhealth());
             playerStats();
             ObstacleStats(i);
@@ -44,24 +54,20 @@ public abstract class BattleLoc extends Location {
                 int shoot = random.nextInt(2);
                 switch (shoot) {
                     case 0:
-                        System.out.println(" kaçmak için k ye basın");
+                        System.out.println("Vurmak icin v'ye basiniz kaçmak için k ye basın");
                         String selectcase = input.next();
                         selectcase = selectcase.toUpperCase();
-                        if (selectcase.equals("k")) {
+                        if (selectcase.equals("K")) {
                             System.out.println("kaçıyorsunuz...");
                             return true;
                         } else if (selectcase.equals("V")) {
-                            String selectcombat = input.next().toUpperCase();
-                            if (selectcombat.equals("V")) {
-                                System.out.println("Siz vurdunuz !");
-                                monster.setHealth(this.monster.getHealth() - this.getPlayer().getTotaldamage());
-                                afterHit();
-                            }
-                                else{
-                                    return false;
-                                }
-
-                            }
+                            System.out.println("Siz vurdunuz !");
+                            monster.setHealth(this.monster.getHealth() - this.getPlayer().getTotaldamage());
+                            afterHit();
+                        }
+                        else{
+                            return false;
+                        }
                     case 1:
                         if (this.getMonster().getHealth() > 0) {
                             System.out.println();
@@ -86,6 +92,7 @@ public abstract class BattleLoc extends Location {
             }
 
         }
+        setAllEneymiesClear(true);
         return true;
 
     }
@@ -114,7 +121,7 @@ public abstract class BattleLoc extends Location {
     }
     public int randomObstacleNumber(){
         Random r=new Random();
-      return  r.nextInt(this.getMaxobstacle())+1;
+        return  r.nextInt(this.getMaxobstacle())+1;
     }
 
     public Monster getMonster() {
@@ -156,5 +163,13 @@ public abstract class BattleLoc extends Location {
 
     public void setPrize(String prize) {
         this.prize = prize;
+    }
+
+    public boolean isAllEneymiesClear() {
+        return isAllEneymiesClear;
+    }
+
+    public void setAllEneymiesClear(boolean allEneymiesClear) {
+        isAllEneymiesClear = allEneymiesClear;
     }
 }

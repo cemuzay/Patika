@@ -16,6 +16,9 @@ public class Game  {
         System.out.println("lütfen bir karakter seçiniz ");
         player.selectChar();
         Location location = null;
+        Location cave = new Cave(player);
+        Location forest = new Forest(player);
+        Location river = new River(player);;
         while(true) {
             player.PrintInfo();
             System.out.println();
@@ -41,13 +44,13 @@ public class Game  {
                     location = new ToolStore(player);
                     break;
                 case 3:
-                    location=new Cave(player);
+                    location=cave;
                     break;
                 case 4:
-                    location=new Forest(player);
+                    location=forest;
                     break;
                 case 5:
-                    location=new River(player);
+                    location=river;
                     break;
                 default:
                     System.out.println("lütfen geçerli bir bölge giriniz ! ");
@@ -56,12 +59,11 @@ public class Game  {
                 System.out.println("Bu karanlık ve sisli adadan çabuk vazgeçtin . ");
                 break;
             }
-           if(!location.onLocation()){
-               System.out.println(" GAME OVER ! ");
-               break;
-           }
+            if(!location.onLocation()){
+                System.out.println(" GAME OVER ! ");
+                break;
+            }
         }
     }
 
 }
-
