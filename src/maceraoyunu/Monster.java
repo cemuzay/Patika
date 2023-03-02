@@ -8,14 +8,16 @@ public class Monster {
     private int health;
     private int award;
     private  int orjhealth;
+    private String prize;
 
-    public Monster(int id, String name, int damage, int health, int award, int orjhealth) {
+    public Monster(int id, String name, int damage, int health, int award, int orjhealth,String prize) {
         this.id = id;
         this.name=name;
         this.damage = damage;
         this.health = health;
         this.award=award;
         this.orjhealth = orjhealth;
+        this.prize=prize;
     }
     public String getName() {
         return name;
@@ -68,4 +70,11 @@ public class Monster {
         this.award = award;
     }
 
+    public String getPrize() {
+        return prize;
+    }
+
+    public void setPrize(String prize) {
+        this.prize = prize;
+    }
 }

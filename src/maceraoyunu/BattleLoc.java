@@ -3,14 +3,17 @@ package src.maceraoyunu;
 import java.util.Random;
 
 public abstract class BattleLoc extends Location {
+    Random random=new Random();
     private Monster monster;
-    private String award;
+    private int award;
+    private String prize;
     private int maxobstacle;
     private int chance;
-    public BattleLoc(Player player, String name, Monster monster, String award, int maxobstacle,int chance) {
+    public BattleLoc(Player player, String name, Monster monster, int award,String prize, int maxobstacle,int chance) {
         super(player, name);
         this.monster=monster;
         this.award=award;
+        this.prize=prize;
         this.maxobstacle=maxobstacle;
         this.chance=chance;
     }
@@ -24,7 +27,6 @@ public abstract class BattleLoc extends Location {
         selectCase=selectCase.toUpperCase();
         if(selectCase.equals("S") && combat(obsNumber)){
                 System.out.println(this.getName()+"tüm düşmanları yendiniz !");
-
                 return true;
             }
          if(this.getPlayer().getHealth()<=0){
@@ -38,35 +40,46 @@ public abstract class BattleLoc extends Location {
             this.getMonster().setHealth(this.getMonster().getOrjhealth());
             playerStats();
             ObstacleStats(i);
-            while (this.getPlayer().getHealth()>0 && this.getMonster().getHealth()>0 ){
-                System.out.println("<V>ur veya <K>aç : ");
-                String selectcombat=input.next().toUpperCase();
+            while (this.getPlayer().getHealth()>0 && this.getMonster().getHealth()>0 ) {
+                int shoot = random.nextInt(2);
+                switch (shoot) {
+                    case 0:
+                        System.out.println(" kaçmak için k ye basın");
+                        String selectcase = input.next();
+                        selectcase = selectcase.toUpperCase();
+                        if (selectcase.equals("k")) {
+                            System.out.println("kaçıyorsunuz...");
+                            return true;
+                        } else if (selectcase.equals("V")) {
+                            String selectcombat = input.next().toUpperCase();
+                            if (selectcombat.equals("V")) {
+                                System.out.println("Siz vurdunuz !");
+                                monster.setHealth(this.monster.getHealth() - this.getPlayer().getTotaldamage());
+                                afterHit();
+                            }
+                                else{
+                                    return false;
+                                }
 
-               // randomhit();
-
-                if(selectcombat.equals("V")){
-                    System.out.println("Siz vurdunuz !");
-                    monster.setHealth(this.monster.getHealth()-this.getPlayer().getTotaldamage());
-                    afterHit();
-                    if(this.getMonster().getHealth()>0){
-                        System.out.println();
-                        System.out.println("Canavar size vurdu !");
-                        int obstacledamge=this.getMonster().getDamage()-this.getPlayer().getInventory().getArmor().getBlock();
-                        if(obstacledamge<0){
-                            obstacledamge=0;
+                            }
+                    case 1:
+                        if (this.getMonster().getHealth() > 0) {
+                            System.out.println();
+                            System.out.println("Canavar size vurdu !");
+                            int obstacledamge = this.getMonster().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
+                            if (obstacledamge < 0) {
+                                obstacledamge = 0;
+                            }
+                            this.getPlayer().setHealth(this.getPlayer().getHealth() - obstacledamge);
+                            afterHit();
                         }
-                        this.getPlayer().setHealth(this.getPlayer().getHealth()- obstacledamge);
-                        afterHit();
 
-                    }
-                    }
-                else {
-                    return false;
                 }
             }   if(this.getMonster().getHealth()<this.getPlayer().getHealth()){
                 System.out.println( " Düşmanı yendiniz ");
                 System.out.println(this.getMonster().getAward()+ " para kazandız !");
                 this.getPlayer().setMoney(this.player().getMoney()+this.monster.getAward());
+                System.out.println("ödülünüz "+this.getMonster().getPrize());
                 System.out.println("Güncel Paranız : "+this.getPlayer().getMoney());
             }else {
                 return false;
@@ -103,10 +116,6 @@ public abstract class BattleLoc extends Location {
         Random r=new Random();
       return  r.nextInt(this.getMaxobstacle())+1;
     }
-  /*  public int randomhit(){
-        Random r=new Random();
-        return r.nextInt(this.getChance()+101);
-    }*/
 
     public Monster getMonster() {
         return monster;
@@ -116,11 +125,11 @@ public abstract class BattleLoc extends Location {
         this.monster = monster;
     }
 
-    public String getAward() {
+    public int getAward() {
         return award;
     }
 
-    public void setAward(String award) {
+    public void setAward(int award) {
 
         this.award = award;
     }
@@ -139,5 +148,13 @@ public abstract class BattleLoc extends Location {
 
     public void setChance(int chance) {
         this.chance = chance;
+    }
+
+    public String getPrize() {
+        return prize;
+    }
+
+    public void setPrize(String prize) {
+        this.prize = prize;
     }
 }
