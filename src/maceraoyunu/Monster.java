@@ -1,5 +1,7 @@
 package src.maceraoyunu;
 
+import java.util.Random;
+
 public class Monster {
 
     private String name;
@@ -9,8 +11,10 @@ public class Monster {
     private int award;
     private  int orjhealth;
     private String prize;
+    private int maxdamage;
+    Random random=new Random();
 
-    public Monster(int id, String name, int damage, int health, int award, int orjhealth,String prize) {
+    public Monster(int id, String name, int damage, int health, int award, int orjhealth,String prize,int maxdamage) {
         this.id = id;
         this.name=name;
         this.damage = damage;
@@ -18,7 +22,13 @@ public class Monster {
         this.award=award;
         this.orjhealth = orjhealth;
         this.prize=prize;
+        this.maxdamage=maxdamage;
     }
+    public int snakerandomdamage(){
+        Random r=new Random();
+        return  r.nextInt(this.getMaxdamage())+1;
+    }
+
     public String getName() {
         return name;
     }
@@ -76,5 +86,13 @@ public class Monster {
 
     public void setPrize(String prize) {
         this.prize = prize;
+    }
+
+    public int getMaxdamage() {
+        return maxdamage;
+    }
+
+    public void setMaxdamage(int maxdamage) {
+        this.maxdamage = maxdamage;
     }
 }

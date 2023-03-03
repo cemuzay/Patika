@@ -5,19 +5,16 @@ import java.util.Random;
 public abstract class BattleLoc extends Location {
     Random random=new Random();
     private Monster monster;
-    private int award;
     private String prize;
     private int maxobstacle;
-    private int chance;
+
 
     private boolean isAllEneymiesClear;
-    public BattleLoc(Player player, String name, Monster monster, int award,String prize, int maxobstacle,int chance) {
+    public BattleLoc(Player player, String name, Monster monster, String prize, int maxobstacle) {
         super(player, name);
         this.monster=monster;
-        this.award=award;
         this.prize=prize;
         this.maxobstacle=maxobstacle;
-        this.chance=chance;
         this.isAllEneymiesClear=false;
     }
     @Override
@@ -93,6 +90,7 @@ public abstract class BattleLoc extends Location {
 
         }
         setAllEneymiesClear(true);
+        System.out.println("tüm düşmanları yendiniz oyun bitti.");
         return true;
 
     }
@@ -101,6 +99,7 @@ public abstract class BattleLoc extends Location {
         System.out.println("------------");
         System.out.println("sağlık : "+ this.getMonster().getHealth());
         System.out.println("hasar : "+this.getMonster().getDamage());
+        System.out.println("yılanın rastgele hasarı " +this.getMonster().getMaxdamage());
         System.out.println("ödül : "+this.getMonster().getAward());
     }
     public void playerStats(){
@@ -124,6 +123,7 @@ public abstract class BattleLoc extends Location {
         return  r.nextInt(this.getMaxobstacle())+1;
     }
 
+
     public Monster getMonster() {
         return monster;
     }
@@ -132,31 +132,21 @@ public abstract class BattleLoc extends Location {
         this.monster = monster;
     }
 
-    public int getAward() {
-        return award;
-    }
-
-    public void setAward(int award) {
-
-        this.award = award;
-    }
-
     public int getMaxobstacle() {
         return maxobstacle;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
     }
 
     public void setMaxobstacle(int maxobstacle) {
         this.maxobstacle = maxobstacle;
     }
-
-    public int getChance() {
-        return chance;
-    }
-
-    public void setChance(int chance) {
-        this.chance = chance;
-    }
-
     public String getPrize() {
         return prize;
     }

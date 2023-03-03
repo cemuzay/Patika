@@ -19,6 +19,7 @@ public class Game  {
         Location cave = new Cave(player);
         Location forest = new Forest(player);
         Location river = new River(player);;
+        Location coal=new Coal(player);
         while(true) {
             player.PrintInfo();
             System.out.println();
@@ -29,7 +30,7 @@ public class Game  {
             System.out.println("3-mağara --> ödül <Yemek>  ,dikkatli ol canavar çıkabilir !");
             System.out.println("4-Orman --> ödül <Odun> ,dikkatli ol canavar çıkabilir !");
             System.out.println("5-Nehir --> ödül <Su> ,dikkatli ol canavar çıkabilir !");
-
+            System.out.println("6-Maden --> ödül <para eşya silah> ,dikkatli ol canavar çıkabilir !");
             System.out.println("0-Çıkış yap --> oyunu sonlandır !");
             System.out.println("Lütfen gitmek istediğiniz bölgeyi seçiniz ");
             int selecloc = input.nextInt();
@@ -51,6 +52,9 @@ public class Game  {
                     break;
                 case 5:
                     location=river;
+                    break;
+                case 6:
+                    location=coal;
                     break;
                 default:
                     System.out.println("lütfen geçerli bir bölge giriniz ! ");
