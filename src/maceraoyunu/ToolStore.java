@@ -52,6 +52,7 @@ public class ToolStore extends Normallocation{
                 System.out.println("Geçersiz değer ,tekrar giriniz :");
                 selectedweaponId = input.nextInt();
             }
+            System.out.println("0- çıkış yap");
             if(selectedweaponId!=0){
             Weapon selectedweapon = Weapon.getweaponobjbyid(selectedweaponId);
             if (selectedweapon != null) {

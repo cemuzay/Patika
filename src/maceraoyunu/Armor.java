@@ -16,8 +16,8 @@ public class Armor {
     public static Armor[]  armors(){
         Armor[] armorlist=new Armor[3];
          armorlist[0]=new Armor(1,"Hafif",1,15);
-         armorlist[1]=new Armor(2,"orta",3,25);
-         armorlist[2]=new Armor(3,"Ağır",5,40);
+         armorlist[1]=new Armor(2,"orta",5,25);
+         armorlist[2]=new Armor(3,"Ağır",7,40);
          return armorlist;
     }
     public static Armor getArmorobjbyid(int id){

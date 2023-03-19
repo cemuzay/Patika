@@ -14,9 +14,9 @@ public class Weapon {
     }
     public static Weapon[] weapons(){
         Weapon[] weapons=new Weapon[3];
-        weapons[0]=new Weapon("Tabanca",1,2,5);
-        weapons[1]=new Weapon("Kılıç",2,3,35);
-        weapons[2]=new Weapon("Tüfek",3,7,45);
+        weapons[0]=new Weapon("Tabanca",1,3,5);
+        weapons[1]=new Weapon("Kılıç",2,4,35);
+        weapons[2]=new Weapon("Tüfek",3,8,45);
         return weapons;
     }
     public static Weapon getweaponobjbyid(int id){

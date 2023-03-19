@@ -8,14 +8,14 @@ public class Game  {
 
     public void start(){
         System.out.println("Macera oyununa hoşgeldiniz ! ");
-        System.out.println("Lütfen bir isim giriniz : ");
-        String playerName= input.nextLine();
-        Player player=new Player(playerName);
+       /* System.out.println("Lütfen bir isim giriniz : ");
+        String playerName= input.nextLine();*/
+        Player player = new Player("cem");
         System.out.println(" Sayın " + player.getName() + " bu karanlık ve sisli adaya hoşgeldiniz !!");
         System.out.println(" burada yaşananların hepsi gerçek ! ");
         System.out.println("lütfen bir karakter seçiniz ");
         player.selectChar();
-        Location location = null;
+        Location location =null;
         Location cave = new Cave(player);
         Location forest = new Forest(player);
         Location river = new River(player);;
@@ -56,11 +56,20 @@ public class Game  {
                 case 6:
                     location=coal;
                     break;
+                case 7:
+                    player.getInventory().setFood(true);
+                    player.getInventory().setWater(true);
+                    player.getInventory().setFirewood(true);
+                    break;
                 default:
                     System.out.println("lütfen geçerli bir bölge giriniz ! ");
             }
             if(location==null){
                 System.out.println("Bu karanlık ve sisli adadan çabuk vazgeçtin . ");
+                break;
+            }
+            if(player.getInventory().isFood() && player.getInventory().isWater() && player.getInventory().isFirewood()){
+                System.out.println("oyunu kazandınız oyun bitti tebrikler .");
                 break;
             }
             if(!location.onLocation()){

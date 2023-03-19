@@ -5,17 +5,58 @@ import java.util.Random;
 public abstract class BattleLoc extends Location {
     Random random=new Random();
     private Monster monster;
-    private String prize;
+    private String item;
     private int maxobstacle;
+    private int chance;
 
+    public int getChance2() {
+        return chance2;
+    }
+
+    public void setChance2(int chance2) {
+        this.chance2 = chance2;
+    }
+
+    private int chance2;
+
+    public int getChance() {
+        return chance;
+    }
+
+    public void setChance(int chance) {
+        this.chance = chance;
+    }
+
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    private String type;
+
+    Inventory inventory;
 
     private boolean isAllEneymiesClear;
-    public BattleLoc(Player player, String name, Monster monster, String prize, int maxobstacle) {
+    public BattleLoc(Player player, String name, Monster monster, String item, int maxobstacle,String type) {
         super(player, name);
         this.monster=monster;
-        this.prize=prize;
+        this.item =item;
         this.maxobstacle=maxobstacle;
         this.isAllEneymiesClear=false;
+        this.type=type;
     }
     @Override
     public boolean onLocation() {
@@ -78,18 +119,82 @@ public abstract class BattleLoc extends Location {
                         }
 
                 }
-            }   if(this.getMonster().getHealth()<this.getPlayer().getHealth()){
+            }
+            if(this.getMonster().getHealth()<this.getPlayer().getHealth()){
                 System.out.println( " Düşmanı yendiniz ");
                 System.out.println(this.getMonster().getAward()+ " para kazandız !");
+                if(getType().equals("coal")){
+
+                setChance(getRandomNumberUsingInts(0,100));
+              if(chance>=0 && chance<15){
+                  setChance2(getRandomNumberUsingInts(0,100));
+                  if(chance2>=0 && chance2<20){
+                      Weapon.getweaponobjbyid(3);
+                      System.out.println("şansınıza tüfek düştü");
+                  }else if(chance2>=20 && chance2<50){
+                      Weapon.getweaponobjbyid(2);
+                      System.out.println("şansınıza kılıç düştü");
+
+                  }else if(chance2>=50 && chance2<=100){
+                      Weapon.getweaponobjbyid(1);
+                      System.out.println("şansınıza tabanca düştü");
+                  }
+              }else if(chance>=15 && chance<30){
+                  setChance2(getRandomNumberUsingInts(0,100));
+                  if(chance2>=0 && chance2<20){
+                    Armor.getArmorobjbyid(3);
+                      System.out.println("şansınıza ağır zırh düştü");
+                  }else if(chance2>=20 && chance2<50){
+                      Armor.getArmorobjbyid(2);
+                      System.out.println("şansınıza orta zırh düştü");
+                  }else if(chance2>=50 && chance2<=100){
+                      Armor.getArmorobjbyid(1);
+                      System.out.println("şansınıza hafif zırh düştü");
+
+                  }
+              }else if(chance>=30 && chance<55){
+                  setChance2(getRandomNumberUsingInts(0,100));
+                  if(chance2>=0 && chance2<20){
+                      this.getPlayer().setMoney(this.player().getMoney()+ 10);
+                      System.out.println("şansınıza 10 lira düştü");
+                  }else if(chance2>=20 && chance2<50){
+                      this.getPlayer().setMoney(this.player().getMoney()+ 5);
+                      System.out.println("şansınıza 5 lira düştü");
+                  }else if(chance2>=50 && chance2<=100){
+                      this.getPlayer().setMoney(this.player().getMoney()+ 1);
+                      System.out.println("şansınıza 1 lira düştü");
+                  }
+
+
+              }else{
+                  System.out.println("hiç öldül kazanamadınız . ");
+              }
+                }
                 this.getPlayer().setMoney(this.player().getMoney()+this.monster.getAward());
                 System.out.println("ödülünüz "+this.getMonster().getPrize());
                 System.out.println("Güncel Paranız : "+this.getPlayer().getMoney());
-            }else {
+            }
+            else {
                 return false;
+
             }
 
         }
         setAllEneymiesClear(true);
+
+        switch (type){
+            case "cave":
+                player().getInventory().setFood(true);
+                break;
+            case "forest":
+                player().getInventory().setFirewood(true);
+                break;
+            case "river":
+                player().getInventory().setWater(true);
+                break;
+            case "coal":
+                break;
+        }
         System.out.println("tüm düşmanları yendiniz oyun bitti.");
         return true;
 
@@ -99,7 +204,7 @@ public abstract class BattleLoc extends Location {
         System.out.println("------------");
         System.out.println("sağlık : "+ this.getMonster().getHealth());
         System.out.println("hasar : "+this.getMonster().getDamage());
-        System.out.println("yılanın rastgele hasarı " +this.getMonster().getMaxdamage());
+        System.out.println("yılanın rastgele hasarı " + this.getMonster().getMaxdamage());
         System.out.println("ödül : "+this.getMonster().getAward());
     }
     public void playerStats(){
@@ -121,6 +226,12 @@ public abstract class BattleLoc extends Location {
     public int randomObstacleNumber(){
         Random r=new Random();
         return  r.nextInt(this.getMaxobstacle())+1;
+    }
+    public int getRandomNumberUsingInts(int min, int max) {
+        Random random = new Random();
+        return random.ints(min, max)
+                .findFirst()
+                .getAsInt();
     }
 
 
@@ -147,12 +258,12 @@ public abstract class BattleLoc extends Location {
     public void setMaxobstacle(int maxobstacle) {
         this.maxobstacle = maxobstacle;
     }
-    public String getPrize() {
-        return prize;
+    public String getItem() {
+        return item;
     }
 
-    public void setPrize(String prize) {
-        this.prize = prize;
+    public void setItem(String item) {
+        this.item = item;
     }
 
     public boolean isAllEneymiesClear() {
@@ -162,4 +273,5 @@ public abstract class BattleLoc extends Location {
     public void setAllEneymiesClear(boolean allEneymiesClear) {
         isAllEneymiesClear = allEneymiesClear;
     }
+
 }
